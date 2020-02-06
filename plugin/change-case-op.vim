@@ -54,7 +54,7 @@ fun! ChangeCaseOp(visualtype, ...) abort
         let lines[lastLnum] = strpart(lines[lastLnum], 0, endCol)
     endif
 
-    let info = ''
+    let info = 'Press: '
     for k in keys(g:changecase_modifiers)
         let info = info . k . ':' . g:changecase_modifiers[k].name . ' '
     endfor
@@ -63,6 +63,8 @@ fun! ChangeCaseOp(visualtype, ...) abort
     let key = nr2char(getchar())
     " clear status line
     echo ''
+    " Avoid "Press enter to continue"
+    redraw!
 
     if !has_key(g:changecase_modifiers, key) && key !~ '[[:punct:][:blank:]]'
         return
